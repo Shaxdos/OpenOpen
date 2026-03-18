@@ -33,15 +33,22 @@ def db_setup():
         user_id INTEGER PRIMARY KEY, username TEXT, name TEXT, phone TEXT,
         balance INTEGER DEFAULT 0, votes INTEGER DEFAULT 0,
         withdrawn INTEGER DEFAULT 0, referrer_id INTEGER, ref_paid INTEGER DEFAULT 0)''')
+    
     cursor.execute('''CREATE TABLE IF NOT EXISTS channels (
         id INTEGER PRIMARY KEY AUTOINCREMENT, channel_id TEXT, title TEXT, url TEXT)''')
+    
     cursor.execute('''CREATE TABLE IF NOT EXISTS used_phones (phone TEXT PRIMARY KEY)''')
     cursor.execute('''CREATE TABLE IF NOT EXISTS settings (key TEXT PRIMARY KEY, value TEXT)''')
+    
     cursor.execute('''CREATE TABLE IF NOT EXISTS vote_history (
         id INTEGER PRIMARY KEY AUTOINCREMENT, user_id INTEGER, phone TEXT, time TEXT)''')
 
-    # --- O'ZGARISH: MAJBURIY KANALNI BAZAGA AVTOMATIK QO'SHISH ---
-    cursor.execute("INSERT OR IGNORE INTO channels (id, channel_id, title, url) VALUES (1, '-1003718123385', 'Open Budget Isbot', 'https://t.me/openbudgetIsbo')")
+    # --- FAQAT 1 TA KANAL QOLDIRISH ---
+    cursor.execute("DELETE FROM channels")  # eski kanallarni o‘chiramiz
+    cursor.execute("""
+        INSERT INTO channels (channel_id, title, url)
+        VALUES ('-1003718123385', 'Open Budget Isbot', 'https://t.me/openbudgetIsbo')
+    """)
 
     default_start = (
         "<b>BOT AKTIV ISHLAMOQDA ✅</b>\n\n"
@@ -57,10 +64,12 @@ def db_setup():
         ('vote_link', 'https://t.me/ochiqbudjetbot?start=053465392013'),
         ('payment_channel', 'O\'rnatilmagan'),
         ('start_text', default_start),
-        ('video_file_id', '') # Bu bo'sh bo'lsa VIDEO_URL ishlatiladi
+        ('video_file_id', '')
     ]
+
     for k, v in sets:
         cursor.execute("INSERT OR IGNORE INTO settings (key, value) VALUES (?, ?)", (k, v))
+
     conn.commit()
 
 db_setup()
