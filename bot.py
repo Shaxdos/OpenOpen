@@ -14,7 +14,7 @@ from aiogram.types import FSInputFile, URLInputFile
 from aiogram.exceptions import TelegramConflictError
 
 # --- KONFIGURATSIYA ---
-API_TOKEN = "8708962367:AAENfGVqxljGC2tQvtqVcLaz7DVsIBYofgc"
+API_TOKEN = "8674788956:AAH3-YFi8yNlpJwqjQsTQaqYN-MrxDNj-xI"
 ADMIN_ID = 7957774091
 LOG_GROUP_ID = -1003718123385 
 
