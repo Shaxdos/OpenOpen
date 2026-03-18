@@ -40,6 +40,9 @@ def db_setup():
     cursor.execute('''CREATE TABLE IF NOT EXISTS vote_history (
         id INTEGER PRIMARY KEY AUTOINCREMENT, user_id INTEGER, phone TEXT, time TEXT)''')
 
+    # --- O'ZGARISH: MAJBURIY KANALNI BAZAGA AVTOMATIK QO'SHISH ---
+    cursor.execute("INSERT OR IGNORE INTO channels (id, channel_id, title, url) VALUES (1, '-1003718123385', 'Open Budget Isbot', 'https://t.me/openbudgetIsbo')")
+
     default_start = (
         "<b>BOT AKTIV ISHLAMOQDA ✅</b>\n\n"
         "⁉️ BOT ORQALI QANDAY QILIB OVOZ BERISH VIDEODA KO'RSATILGAN.\n\n"
